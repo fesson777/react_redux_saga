@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/header/Header'
+import Footer from './components/footer/Footer'
+import { useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 
-function App() {
+const App = ({ children }) => {
+  const { pathname } = useLocation()
+  console.log(pathname)
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch({ type: 'LOCATION_CHANGE', payload: pathname })
+  }, [pathname])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Header />
+      <main>{children}</main>
+      <Footer />
+    </>
+  )
 }
-
-export default App;
+export default App
